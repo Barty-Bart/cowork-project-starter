@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Project dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #161922;
+    --panel-2: #1d2230;
+    --border: #2a3040;
+    --text: #e6e9f2;
+    --muted: #8a92a6;
+    --accent: #6aa9ff;
+    --good: #6fce8d;
+    --warn: #f1c074;
+    --bad: #f08a8a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font: 14px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 32px;
+  }
+  h1 { margin: 0 0 4px 0; font-size: 26px; font-weight: 600; }
+  h2 { margin: 0 0 12px 0; font-size: 16px; font-weight: 600; letter-spacing: 0.02em; color: var(--muted); text-transform: uppercase; }
+  .sub { color: var(--muted); margin: 0 0 24px 0; }
+  .header {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+  .header .meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .stages {
+    margin-top: 20px;
+  }
+  .stage-bar {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .stage-pill {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  .stage-pill.done { background: rgba(111, 206, 141, 0.15); color: var(--good); border-color: rgba(111, 206, 141, 0.4); }
+  .stage-pill.current { background: rgba(106, 169, 255, 0.18); color: var(--accent); border-color: rgba(106, 169, 255, 0.5); font-weight: 600; }
+  .progress {
+    margin-top: 12px;
+    background: var(--panel-2);
+    border-radius: 999px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress > .fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--good));
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .panel.wide { grid-column: 1 / -1; }
+  ul.items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.items li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+  ul.items li:last-child { border-bottom: 0; }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--panel-2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .tag.priority-high { color: var(--bad); border-color: rgba(240,138,138,0.4); }
+  .tag.priority-med { color: var(--warn); border-color: rgba(241,192,116,0.4); }
+  .tag.priority-low { color: var(--muted); }
+  .row-title { flex: 1; }
+  .row-meta { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .empty { color: var(--muted); font-style: italic; padding: 12px 0; }
+  footer {
+    margin-top: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>[project name]</h1>
+  <p class="sub">[one-line project purpose from SOUL.md]</p>
+  <div class="meta">
+    <span><strong>Archetype:</strong> [Short-lived | Continuous]</span>
+    <span><strong>Last updated:</strong> [YYYY-MM-DD]</span>
+    <span><strong>Sessions:</strong> [N]</span>
+  </div>
+
+  <div class="stages">
+    <!-- For short-lived projects: stages from instructions.md -->
+    <div class="stage-bar">
+      <div class="stage-pill done">[Stage 1]</div>
+      <div class="stage-pill done">[Stage 2]</div>
+      <div class="stage-pill current">[Stage 3]</div>
+      <div class="stage-pill">[Stage 4]</div>
+      <div class="stage-pill">[Stage 5]</div>
+    </div>
+    <div class="progress"><div class="fill" style="width:45%"></div></div>
+    <!-- For continuous projects: replace stages with current rhythm cycle -->
+  </div>
+</div>
+
+<div class="grid">
+
+  <div class="panel">
+    <h2>Up next</h2>
+    <ul class="items">
+      <!-- Top 5 rows from tracker.xlsx Backlog sheet -->
+      <li>
+        <span class="tag priority-high">high</span>
+        <span class="row-title">[Task title from Backlog]</span>
+        <span class="row-meta">[owner]</span>
+      </li>
+      <li class="empty">No backlog items yet.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>In progress</h2>
+    <ul class="items">
+      <!-- All rows from tracker.xlsx In progress sheet -->
+      <li>
+        <span class="tag">active</span>
+        <span class="row-title">[Task title]<br><small style="color:var(--muted)">active-work/[subfolder]/</small></span>
+        <span class="row-meta">started [date]</span>
+      </li>
+      <li class="empty">Nothing in flight.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>Long-term / unknowns</h2>
+    <ul class="items">
+      <!-- Top 5 open rows from overflow.xlsx -->
+      <li>
+        <span class="tag">open</span>
+        <span class="row-title">[Item from overflow]</span>
+        <span class="row-meta">[date captured]</span>
+      </li>
+      <li class="empty">No open overflow items.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>Recent activity</h2>
+    <ul class="items">
+      <!-- Last 5 lines from activity_log.xlsx -->
+      <li>
+        <span class="row-title">[Action]</span>
+        <span class="row-meta">[date]</span>
+      </li>
+      <li class="empty">No activity logged yet.</li>
+    </ul>
+  </div>
+
+  <div class="panel wide">
+    <h2>Claude tasks running</h2>
+    <ul class="items">
+      <!-- Active rows from claude_tasks.xlsx -->
+      <li>
+        <span class="tag">weekly</span>
+        <span class="row-title"><strong>weekly-review</strong> &middot; Sunday 4pm<br><small style="color:var(--muted)">Reads activity log + overflow, surfaces patterns, proposes new autonomous tasks.</small></span>
+        <span class="row-meta">next: [date]</span>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  This dashboard is regenerated by Claude when tracker or overflow state changes. To refresh manually, ask: "regenerate dashboard.html."
+</footer>
+
+</body>
+</html>
